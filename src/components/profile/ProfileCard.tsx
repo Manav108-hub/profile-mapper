@@ -1,18 +1,16 @@
-'use client';
-
-import { useState } from 'react';
-import Image from 'next/image';
+// components/profile/ProfileCard.tsx
 import Link from 'next/link';
+import Image from 'next/image';
 import { Database } from '@/lib/supabase/client';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 
 interface ProfileCardProps {
   profile: Profile;
-  onViewMap: (profile: Profile) => void;
+  isSelected?: boolean;
 }
 
-export default function ProfileCard({ profile, onViewMap }: ProfileCardProps) {
+export default function ProfileCard({ profile, isSelected }: ProfileCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg">
       <div className="relative h-48 bg-gray-200">
@@ -33,14 +31,14 @@ export default function ProfileCard({ profile, onViewMap }: ProfileCardProps) {
         <h3 className="text-xl font-semibold mb-2">{profile.name}</h3>
         <p className="text-gray-600 mb-4 line-clamp-3">{profile.description}</p>
         <div className="flex justify-between">
-          <button
-            onClick={() => onViewMap(profile)}
+          <a
+            href={`/?summary=${profile.id}`}
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
           >
             Summary
-          </button>
+          </a>
           <Link
-            href={`/profile/${profile.id}`}
+            href={`/profiles/${profile.id}`}
             className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded transition-colors"
           >
             Details

@@ -1,9 +1,10 @@
+// app/[id]/page.tsx
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import MapDisplay from '@/components/map/MapDisplay';
+import StaticMap from '@/components/map/StaticMap';
 import { Database } from '@/lib/supabase/client';
 
 export const revalidate = 0;
@@ -21,11 +22,11 @@ export default async function ProfileDetailPage({
     .select('*')
     .eq('id', params.id)
     .single();
-  
+
   if (error || !profile) {
     return notFound();
   }
-  
+
   return (
     <main className="container mx-auto px-4 py-8">
       <Link href="/" className="inline-flex items-center text-blue-500 hover:text-blue-700 mb-6">
@@ -66,13 +67,8 @@ export default async function ProfileDetailPage({
           </div>
         </div>
         
-        <div className="h-[500px]">
-          <MapDisplay
-            latitude={profile.latitude}
-            longitude={profile.longitude}
-            address={profile.address}
-            name={profile.name}
-          />
+        <div className="h-[500px] relative">
+          <StaticMap latitude={profile.latitude} longitude={profile.longitude} />
         </div>
       </div>
     </main>
