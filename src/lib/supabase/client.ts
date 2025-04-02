@@ -8,7 +8,7 @@ export type Database = {
           id: string;
           name: string;
           description: string;
-          image_url: string;
+          image_url: string | null;
           address: string;
           latitude: number;
           longitude: number;
@@ -19,7 +19,7 @@ export type Database = {
           id?: string;
           name: string;
           description: string;
-          image_url?: string;
+          image_url?: string | null;
           address: string;
           latitude: number;
           longitude: number;
@@ -30,7 +30,7 @@ export type Database = {
           id?: string;
           name?: string;
           description?: string;
-          image_url?: string;
+          image_url?: string | null;
           address?: string;
           latitude?: number;
           longitude?: number;
